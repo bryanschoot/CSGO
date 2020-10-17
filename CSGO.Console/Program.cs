@@ -6,22 +6,31 @@ namespace CSGO.Console
     public class Program
     {
         /// <inheritdoc cref="Game" />
-        private Game Game { get; set; }
+        private static Game Game { get; set; }
 
         private static void Main()
         {
-            var game = new Game();
-            game.Start();
+            Startup();
 
-            do
-            {
-                while (!System.Console.KeyAvailable)
-                {
-                    // Do something
-                }
-            } while (System.Console.ReadKey(true).Key != ConsoleKey.Escape);
+            do {} while (System.Console.ReadKey(true).Key != ConsoleKey.Escape);
 
-            game.Dispose();
+            Dispose();
+        }
+
+        /// <summary>
+        ///     Startup of the application
+        /// </summary>
+        private static void Startup()
+        {
+            Game = new Game();
+            Game.Start();
+        }
+
+        /// <inheritdoc cref="Dispose" />
+        private static void Dispose()
+        {
+            Game.Dispose();
+            Game = default;
         }
     }
 }
