@@ -1,0 +1,12 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\CSGO.System\CSGO.Sys.csproj" />
+    <ProjectReference Include="..\CSGO.Utils\CSGO.Utils.csproj" />
+  </ItemGroup>
+
+</Project>
