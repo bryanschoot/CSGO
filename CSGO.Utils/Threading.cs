@@ -3,12 +3,12 @@ using System.Threading;
 
 namespace CSGO.Utils
 {
-    public abstract class Threaded : IDisposable
+    public abstract class Threading : IDisposable
     {
         /// <summary>
         ///     Virtual member call in constructor.
         /// </summary>
-        protected Threaded()
+        protected Threading()
         {
             Thread = new Thread(ThreadStart)
             {
@@ -20,7 +20,7 @@ namespace CSGO.Utils
         /// <summary>
         ///     Custom thread name.
         /// </summary>
-        protected virtual string ThreadName => nameof(Threaded);
+        protected virtual string ThreadName => nameof(Threading);
 
         /// <summary>
         ///     Timeout for thread to finish.

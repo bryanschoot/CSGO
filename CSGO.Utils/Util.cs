@@ -2,11 +2,12 @@
 using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
+using System.Runtime.InteropServices;
 using CSGO.Sys;
 
 namespace CSGO.Utils
 {
-    public static class Utility
+    public static class Util
     {
         /// <summary>
         ///     Get window client rectangle.
@@ -57,6 +58,41 @@ namespace CSGO.Utils
             }
 
             return true;
+        }
+
+        /// <summary>
+        ///     Read process memory.
+        /// </summary>
+        public static T Read<T>(this Process process, IntPtr lpBaseAddress)
+            where T : unmanaged
+        {
+            return Read<T>(process.Handle, lpBaseAddress);
+        }
+
+        /// <summary>
+        ///     Read process memory from module.
+        /// </summary>
+        public static T Read<T>(this Module module, int offset)
+            where T : unmanaged
+        {
+            return Read<T>(module.Process.Handle, module.ProcessModule.BaseAddress + offset);
+        }
+
+        private static T Read<T>(object handle, object p) where T : unmanaged
+        {
+            throw new NotImplementedException();
+        }
+
+        /// <summary>
+        ///     Read process memory.
+        /// </summary>
+        public static T Read<T>(IntPtr hProcess, IntPtr lpBaseAddress)
+            where T : unmanaged
+        {
+            var size = Marshal.SizeOf<T>();
+            var buffer = (object) default(T);
+            Kernel32.ReadProcessMemory(hProcess, lpBaseAddress, buffer, size, out var lpNumberOfBytesRead);
+            return lpNumberOfBytesRead == size ? (T) buffer : default;
         }
     }
 }

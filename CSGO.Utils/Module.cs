@@ -15,10 +15,10 @@ namespace CSGO.Utils
         }
 
         /// <inheritdoc cref="Process" />
-        private Process Process { get; set; }
+        public Process Process { get; set; }
 
         /// <inheritdoc cref="ProcessModule" />
-        private ProcessModule ProcessModule { get; set; }
+        public ProcessModule ProcessModule { get; set; }
 
         /// <inheritdoc cref="Dispose" />
         public void Dispose()

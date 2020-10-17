@@ -5,14 +5,16 @@ namespace CSGO.Console
 {
     public class Program
     {
-        /// <inheritdoc cref="Game" />
-        private static Game Game { get; set; }
+        private static GameProcess GameProcess { get; set; }
+        private static GameData GameData { get; set; }
 
         private static void Main()
         {
             Startup();
 
-            do {} while (System.Console.ReadKey(true).Key != ConsoleKey.Escape);
+            do
+            {
+            } while (System.Console.ReadKey(true).Key != ConsoleKey.Escape);
 
             Dispose();
         }
@@ -22,15 +24,21 @@ namespace CSGO.Console
         /// </summary>
         private static void Startup()
         {
-            Game = new Game();
-            Game.Start();
+            GameProcess = new GameProcess();
+            GameData = new GameData(GameProcess);
+
+            GameProcess.Start();
+            GameData.Start();
         }
 
         /// <inheritdoc cref="Dispose" />
         private static void Dispose()
         {
-            Game.Dispose();
-            Game = default;
+            GameProcess.Dispose();
+            GameProcess = default;
+
+            GameData.Dispose();
+            GameData = default;
         }
     }
 }

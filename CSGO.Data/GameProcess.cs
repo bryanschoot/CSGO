@@ -7,7 +7,7 @@ using CSGO.Utils;
 
 namespace CSGO.Data
 {
-    public class Game : Threaded
+    public class GameProcess : Threading
     {
         private const string NameProcess = "csgo";
         private const string NameModuleClient = "client.dll";
@@ -15,13 +15,13 @@ namespace CSGO.Data
         private const string NameWindow = "Counter-Strike: Global Offensive";
 
         /// <inheritdoc cref="ThreadName" />
-        protected override string ThreadName => nameof(Game);
+        protected override string ThreadName => nameof(GameProcess);
 
         /// <inheritdoc cref="TimeSpan" />
         protected override TimeSpan ThreadFrameSleep { get; set; } = new TimeSpan(0, 0, 0, 0, 500);
 
         /// <summary>
-        ///     Game process.
+        ///     GameProcess process.
         /// </summary>
         public Process Process { get; private set; }
 
@@ -36,12 +36,12 @@ namespace CSGO.Data
         public Module ModuleEngine { get; private set; }
 
         /// <summary>
-        ///     Game window handle.
+        ///     GameProcess window handle.
         /// </summary>
         private IntPtr WindowHwnd { get; set; }
 
         /// <summary>
-        ///     Game window client rectangle.
+        ///     GameProcess window client rectangle.
         /// </summary>
         public Rectangle WindowRectangleClient { get; private set; }
 
@@ -73,7 +73,7 @@ namespace CSGO.Data
 
             Console.WriteLine(IsValid
                 ? $"0x{(int) Process.Handle:X8} {WindowRectangleClient.X} {WindowRectangleClient.Y} {WindowRectangleClient.Width} {WindowRectangleClient.Height}"
-                : "Game process invalid");
+                : "GameProcess process invalid");
         }
 
         /// <summary>
@@ -126,7 +126,7 @@ namespace CSGO.Data
             WindowHwnd = User32.FindWindow(null, NameWindow);
             if (WindowHwnd == IntPtr.Zero) return false;
 
-            WindowRectangleClient = Utility.GetClientRectangle(WindowHwnd);
+            WindowRectangleClient = Util.GetClientRectangle(WindowHwnd);
             if (WindowRectangleClient.Width <= 0 || WindowRectangleClient.Height <= 0) return false;
 
             WindowActive = WindowHwnd == User32.GetForegroundWindow();
