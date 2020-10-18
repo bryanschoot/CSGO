@@ -10,12 +10,15 @@ namespace CSGO.Data
     /// <summary>
     ///     Game data
     /// </summary>
-    public class Game
+    public class Game : Threading
     {
         private const string NAME_PROCESS = "csgo";
         private const string NAME_MODULE_CLIENT = "client.dll";
         private const string NAME_MODULE_ENGINE = "engine.dll";
         private const string NAME_WINDOW = "Counter-Strike: Global Offensive";
+
+        protected override string ThreadName => nameof(Game);
+        protected override TimeSpan ThreadFrameSleep { get; set; } = new TimeSpan(0, 0, 0, 0, 500);
 
         public Process Process { get; set; }
         public Module ModuleEngine { get; set; }
@@ -74,6 +77,38 @@ namespace CSGO.Data
             }
 
             return true;
+        }
+
+        private void InvalidateModules()
+        {
+            ModuleEngine?.Dispose();
+            ModuleEngine = default;
+
+            ModuleClient?.Dispose();
+            ModuleClient = default;
+
+            Process?.Dispose();
+            Process = default;
+        }
+
+        private void InvalidateWindow()
+        {
+            WindowHwnd = IntPtr.Zero;
+        }
+
+        protected override void FrameAction()
+        {
+            if (!EnsureProcessAndModules())
+            {
+                InvalidateModules();
+            }
+
+            if (!EnsureWindow())
+            {
+                InvalidateWindow();
+            }
+
+            Console.WriteLine(IsValid() ? $"0x{(int)Process.Handle:X8}" : "Game process invalid");
         }
     }
 }

@@ -1,18 +1,7 @@
 ﻿using CSGO.Data;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
 using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace CSGO.App
 {
@@ -22,6 +11,7 @@ namespace CSGO.App
     public partial class MainWindow : Window
     {
         private Game Game { get; set; }
+        private Match Match { get; set; }
 
         public MainWindow()
         {
@@ -31,6 +21,7 @@ namespace CSGO.App
         private void Inject_btn_Click(object sender, RoutedEventArgs e)
         {
             Game = new Game();
+            Game.Start();
 
             if (Game.IsValid())
             {
@@ -38,12 +29,19 @@ namespace CSGO.App
                 status_lbl.Content = "Succeeded";
 
                 inject_btn.IsEnabled = false;
-                
-            } else
+                Start();
+            }
+            else
             {
                 status_lbl.Foreground = Brushes.Red;
                 status_lbl.Content = "failed";
             }
+        }
+
+        private void Start()
+        {
+            Match = new Match(Game);
+            Match.Start();
         }
     }
 }

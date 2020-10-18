@@ -1,7 +1,9 @@
-﻿using CSGO.Utils;
+﻿using CSGO.DLL;
+using CSGO.Utils;
 using System;
 using System.Diagnostics;
 using System.Linq;
+using System.Runtime.InteropServices;
 
 namespace CSGO.Helpers
 {
@@ -39,6 +41,26 @@ namespace CSGO.Helpers
                 return false;
             }
             return true;
+        }
+
+        public static T Read<T>(this Process process, IntPtr lpBaseAddress) where T : unmanaged
+        {
+            return Read<T>(process.Handle, lpBaseAddress);
+        }
+
+        public static T Read<T>(this Module module, int offset)
+        where T : unmanaged
+        {
+            return Read<T>(module.Process.Handle, module.ProcessModule.BaseAddress + offset);
+        }
+
+        public static T Read<T>(IntPtr hProcess, IntPtr lpBaseAddress)
+            where T : unmanaged
+        {
+            var size = Marshal.SizeOf<T>();
+            var buffer = (object)default(T);
+            Kernel32.ReadProcessMemory(hProcess, lpBaseAddress, buffer, size, out var lpNumberOfBytesRead);
+            return lpNumberOfBytesRead == size ? (T)buffer : default;
         }
     }
 }

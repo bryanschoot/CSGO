@@ -5,8 +5,13 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="System.Numerics.Vectors" Version="4.5.0" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\CSGO.DLL\CSGO.DLL.csproj" />
     <ProjectReference Include="..\CSGO.Helpers\CSGO.Helpers.csproj" />
+    <ProjectReference Include="..\CSGO.Offsets\CSGO.Offsets.csproj" />
     <ProjectReference Include="..\CSGO.Utils\CSGO.Utils.csproj" />
   </ItemGroup>
 
