@@ -1,29 +1,47 @@
 ﻿using CSGO.Helpers;
 using CSGO.Offsets;
 using System;
-using System.Numerics;
 
 namespace CSGO.Data
 {
-    /// <summary>
-    ///     Player data
-    /// </summary>
-    public class Player
+    public class Player : Entity
     {
-        public void Update(Game game)
-        {
-            var addressBase = game.ModuleClient.Read<IntPtr>(Signatures.dwLocalPlayer);
+        public int Index { get; }
+        public bool Dormant { get; private set; } = true;
+        public int GlowIndex { get; set; }
 
-            if (addressBase == IntPtr.Zero)
+        public Player(int index)
+        {
+            Index = index;
+        }
+
+        public override bool IsAlive()
+        {
+            return base.IsAlive() && !Dormant;
+        }
+
+        protected override IntPtr ReadAddressBase(Game game)
+        {
+            return game.ModuleClient.Read<IntPtr>(Signatures.dwEntityList + Index * 0x10);
+        }
+
+        public override bool Update(Game game)
+        {
+            if (!base.Update(game))
             {
-                return;
+                return false;
             }
 
-            var origin = game.Process.Read<Vector3>(addressBase + NetVars.m_vecOrigin);
-            var viewOffset = game.Process.Read<Vector3>(addressBase + NetVars.m_vecViewOffset);
-            var eyePosition = origin + viewOffset;
+            UpdateGlowIndex(game);
 
-            Console.WriteLine($"{eyePosition.X:0.00} {eyePosition.Y:0.00} {eyePosition.Z:0.00}");
+            Dormant = game.Process.Read<bool>(AddressBase + Signatures.m_bDormant);
+
+            return true;
+        }
+
+        private void UpdateGlowIndex(Game game)
+        {
+            GlowIndex = game.Process.Read<int>(AddressBase + NetVars.m_iGlowIndex);
         }
     }
 }

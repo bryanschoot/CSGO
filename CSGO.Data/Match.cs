@@ -1,4 +1,5 @@
 ﻿using CSGO.Utils;
+using System.Linq;
 
 namespace CSGO.Data
 {
@@ -8,19 +9,21 @@ namespace CSGO.Data
     public class Match : Threading
     {
         public Game Game { get; set; }
-        public Player Player { get; set; }
+        public Me Me { get; set; }
+        public Player[] Players { get; private set; }
 
         public Match(Game game)
         {
             Game = game;
-            Player = new Player();
+            Me = new Me();
+            Players = Enumerable.Range(0, 32).Select(index => new Player(index)).ToArray();
         }
 
         public override void Dispose()
         {
             base.Dispose();
 
-            Player = default;
+            Me = default;
             Game = default;
         }
 
@@ -31,7 +34,11 @@ namespace CSGO.Data
                 return;
             }
 
-            Player.Update(Game);
+            Me.Update(Game);
+            foreach (var entity in Players)
+            {
+                entity.Update(Game);
+            }
         }
     }
 }

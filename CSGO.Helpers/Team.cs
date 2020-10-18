@@ -1,4 +1,4 @@
-﻿namespace CSGO.Data
+﻿namespace CSGO.Helpers
 {
     /// <summary>
     ///     Team enumeration

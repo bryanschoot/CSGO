@@ -1,5 +1,5 @@
 ﻿using CSGO.Data;
-using System;
+using CSGO.Features;
 using System.Windows;
 using System.Windows.Media;
 
@@ -12,6 +12,7 @@ namespace CSGO.App
     {
         private Game Game { get; set; }
         private Match Match { get; set; }
+        private Wallhack Wallhack { get; set; }
 
         public MainWindow()
         {
@@ -42,6 +43,18 @@ namespace CSGO.App
         {
             Match = new Match(Game);
             Match.Start();
+        }
+
+        private void Wallhack_cb_Checked(object sender, RoutedEventArgs e)
+        {
+            Wallhack = new Wallhack(Match);
+            Wallhack.Start();
+        }
+
+        private void Wallhack_cb_UnChecked(object sender, RoutedEventArgs e)
+        {
+            Wallhack.Dispose();
+            Wallhack = default;
         }
     }
 }

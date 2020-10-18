@@ -107,8 +107,6 @@ namespace CSGO.Data
             {
                 InvalidateWindow();
             }
-
-            Console.WriteLine(IsValid() ? $"0x{(int)Process.Handle:X8}" : "Game process invalid");
         }
     }
 }

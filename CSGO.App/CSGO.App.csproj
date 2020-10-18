@@ -12,6 +12,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\CSGO.Data\CSGO.Data.csproj" />
+    <ProjectReference Include="..\CSGO.Features\CSGO.Features.csproj" />
   </ItemGroup>
 
 </Project>

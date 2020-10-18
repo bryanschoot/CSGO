@@ -1,5 +1,4 @@
-﻿using System;
-using System.Diagnostics;
+﻿using System.Diagnostics;
 
 namespace CSGO.Utils
 {
@@ -19,7 +18,10 @@ namespace CSGO.Utils
 
         public void Dispose()
         {
-            throw new NotImplementedException();
+            Process = default;
+
+            ProcessModule.Dispose();
+            ProcessModule = default;
         }
     }
 }

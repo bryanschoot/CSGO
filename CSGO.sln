@@ -15,6 +15,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CSGO.Utils", "CSGO.Utils\CS
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CSGO.Helpers", "CSGO.Helpers\CSGO.Helpers.csproj", "{59DD4683-CF83-4977-ACA6-F31840A7F82E}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CSGO.Features", "CSGO.Features\CSGO.Features.csproj", "{BEF0AD61-E72A-4507-A4D1-47EEA0058374}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -45,6 +47,10 @@ Global
 		{59DD4683-CF83-4977-ACA6-F31840A7F82E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{59DD4683-CF83-4977-ACA6-F31840A7F82E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{59DD4683-CF83-4977-ACA6-F31840A7F82E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BEF0AD61-E72A-4507-A4D1-47EEA0058374}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BEF0AD61-E72A-4507-A4D1-47EEA0058374}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BEF0AD61-E72A-4507-A4D1-47EEA0058374}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BEF0AD61-E72A-4507-A4D1-47EEA0058374}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
