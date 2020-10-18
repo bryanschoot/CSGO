@@ -1,5 +1,6 @@
 ﻿using CSGO.Data;
 using CSGO.Features;
+using System;
 using System.Windows;
 using System.Windows.Media;
 
@@ -8,7 +9,7 @@ namespace CSGO.App
     /// <summary>
     ///     Interaction logic for MainWindow.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class MainWindow : Window, IDisposable
     {
         private Game Game { get; set; }
         private Match Match { get; set; }
@@ -17,6 +18,7 @@ namespace CSGO.App
         public MainWindow()
         {
             InitializeComponent();
+            Disable();
         }
 
         private void Inject_btn_Click(object sender, RoutedEventArgs e)
@@ -27,16 +29,28 @@ namespace CSGO.App
             if (Game.IsValid())
             {
                 status_lbl.Foreground = Brushes.Green;
-                status_lbl.Content = "Succeeded";
+                status_lbl.Content = "Injected";
 
                 inject_btn.IsEnabled = false;
+
+                Enable();
                 Start();
             }
             else
             {
                 status_lbl.Foreground = Brushes.Red;
-                status_lbl.Content = "failed";
+                status_lbl.Content = "Failed";
             }
+        }
+
+        private void Disable()
+        {
+            wallhack_cb.IsEnabled = false;
+        }
+
+        private void Enable()
+        {
+            wallhack_cb.IsEnabled = true;
         }
 
         private void Start()
@@ -54,6 +68,17 @@ namespace CSGO.App
         private void Wallhack_cb_UnChecked(object sender, RoutedEventArgs e)
         {
             Wallhack.Dispose();
+            Wallhack = default;
+        }
+
+        public void Dispose()
+        {
+            Game.Dispose();
+            Match.Dispose();
+            Wallhack.Dispose();
+
+            Game = default;
+            Match = default;
             Wallhack = default;
         }
     }
