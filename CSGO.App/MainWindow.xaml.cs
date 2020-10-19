@@ -14,6 +14,7 @@ namespace CSGO.App
         private Game Game { get; set; }
         private Match Match { get; set; }
         private Wallhack Wallhack { get; set; }
+        private Recoil Recoil { get; set; }
 
         public MainWindow()
         {
@@ -46,11 +47,13 @@ namespace CSGO.App
         private void Disable()
         {
             wallhack_cb.IsEnabled = false;
+            recoil_cb.IsEnabled = false;
         }
 
         private void Enable()
         {
             wallhack_cb.IsEnabled = true;
+            recoil_cb.IsEnabled = true;
         }
 
         private void Start()
@@ -71,15 +74,31 @@ namespace CSGO.App
             Wallhack = default;
         }
 
+        private void Recoil_cb_Checked(object sender, RoutedEventArgs e)
+        {
+            Recoil = new Recoil(Match);
+            Recoil.Start();
+        }
+
+        private void Recoil_cb_UnChecked(object sender, RoutedEventArgs e)
+        {
+            Recoil.Dispose();
+            Recoil = default;
+        }
+
         public void Dispose()
         {
             Game.Dispose();
             Match.Dispose();
             Wallhack.Dispose();
+            Recoil.Dispose();
 
             Game = default;
             Match = default;
             Wallhack = default;
+            Recoil = default;
         }
+
+ 
     }
 }

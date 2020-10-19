@@ -61,12 +61,12 @@ namespace CSGO.Helpers
             return lpNumberOfBytesRead == size ? (T)buffer : default;
         }
 
-        public static void WriteMemory<T>(this Module module, int address, T buffer) where T : struct
+        public static void WriteMemory<T>(this Module module, IntPtr address, T buffer) where T : struct
         {
             var hProc = Kernel32.OpenProcess(ProcessFlags.All, false, module.Process.Id);
             var val = GetBytes<T>(buffer);
 
-            Kernel32.WriteProcessMemory(hProc, new IntPtr(address), val, (uint)val.LongLength, out _);
+            Kernel32.WriteProcessMemory(hProc, address, val, (uint)val.LongLength, out _);
             Kernel32.CloseHandle(hProc);
         }
 

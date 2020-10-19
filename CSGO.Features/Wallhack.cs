@@ -2,6 +2,7 @@
 using CSGO.Helpers;
 using CSGO.Offsets;
 using CSGO.Utils;
+using System;
 
 namespace CSGO.Features
 {
@@ -44,21 +45,21 @@ namespace CSGO.Features
                 {
                     if (Match.Me.Team != player.Team)
                     {
-                        Match.Game.ModuleClient.WriteMemory(glow + (player.GlowIndex * 0x38) + 0x4, Enemy.R);
-                        Match.Game.ModuleClient.WriteMemory(glow + (player.GlowIndex * 0x38) + 0x8, Enemy.G);
-                        Match.Game.ModuleClient.WriteMemory(glow + (player.GlowIndex * 0x38) + 0xC, Enemy.B);
-                        Match.Game.ModuleClient.WriteMemory(glow + (player.GlowIndex * 0x38) + 0x10, Enemy.A);
-                        Match.Game.ModuleClient.WriteMemory(glow + (player.GlowIndex * 0x38) + 0x24, Enemy.RWO);
-                        Match.Game.ModuleClient.WriteMemory(glow + (player.GlowIndex * 0x38) + 0x26, Enemy.RWUO);
-                    }
-                    if (Match.Me.Team == player.Team)
-                    {
-                        Match.Game.ModuleClient.WriteMemory(glow + (player.GlowIndex * 0x38) + 0x4, Friendly.R);
-                        Match.Game.ModuleClient.WriteMemory(glow + (player.GlowIndex * 0x38) + 0x8, Friendly.G);
-                        Match.Game.ModuleClient.WriteMemory(glow + (player.GlowIndex * 0x38) + 0xC, Friendly.B);
-                        Match.Game.ModuleClient.WriteMemory(glow + (player.GlowIndex * 0x38) + 0x10, Friendly.A);
-                        Match.Game.ModuleClient.WriteMemory(glow + (player.GlowIndex * 0x38) + 0x24, Friendly.RWO);
-                        Match.Game.ModuleClient.WriteMemory(glow + (player.GlowIndex * 0x38) + 0x26, Friendly.RWUO);
+                        Match.Game.ModuleClient.WriteMemory(new IntPtr(glow + (player.GlowIndex * 0x38) + 0x4), Enemy.R);
+                        Match.Game.ModuleClient.WriteMemory(new IntPtr(glow + (player.GlowIndex * 0x38) + 0x8), Enemy.G);
+                        Match.Game.ModuleClient.WriteMemory(new IntPtr(glow + (player.GlowIndex * 0x38) + 0xC), Enemy.B);
+                        Match.Game.ModuleClient.WriteMemory(new IntPtr(glow + (player.GlowIndex * 0x38) + 0x10), Enemy.A);
+                        Match.Game.ModuleClient.WriteMemory(new IntPtr(glow + (player.GlowIndex * 0x38) + 0x24), Enemy.RWO);
+                        Match.Game.ModuleClient.WriteMemory(new IntPtr(glow + (player.GlowIndex * 0x38) + 0x26), Enemy.RWUO);
+                    }                                      
+                    if (Match.Me.Team == player.Team)       
+                    {                                       
+                        Match.Game.ModuleClient.WriteMemory(new IntPtr(glow + (player.GlowIndex * 0x38) + 0x4), Friendly.R);
+                        Match.Game.ModuleClient.WriteMemory(new IntPtr(glow + (player.GlowIndex * 0x38) + 0x8), Friendly.G);
+                        Match.Game.ModuleClient.WriteMemory(new IntPtr(glow + (player.GlowIndex * 0x38) + 0xC), Friendly.B);
+                        Match.Game.ModuleClient.WriteMemory(new IntPtr(glow + (player.GlowIndex * 0x38) + 0x10), Friendly.A);
+                        Match.Game.ModuleClient.WriteMemory(new IntPtr(glow + (player.GlowIndex * 0x38) + 0x24), Friendly.RWO);
+                        Match.Game.ModuleClient.WriteMemory(new IntPtr(glow + (player.GlowIndex * 0x38) + 0x26), Friendly.RWUO);
                     }
                 }
             }
