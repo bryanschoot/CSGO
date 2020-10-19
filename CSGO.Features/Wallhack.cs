@@ -8,6 +8,8 @@ namespace CSGO.Features
 {
     public class Wallhack : Threading
     {
+        protected override string ThreadName => nameof(Wallhack);
+        protected override TimeSpan ThreadFrameSleep { get; set; } = new TimeSpan(0, 0, 0, 0, 1);
         private Match Match { get; set; }
 
         private Glow Enemy { get; set; } = new Glow()
@@ -64,5 +66,7 @@ namespace CSGO.Features
                 }
             }
         }
+
+
     }
 }

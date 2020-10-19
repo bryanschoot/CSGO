@@ -8,6 +8,7 @@ namespace CSGO.Data
     /// </summary>
     public class Match : Threading
     {
+        protected override string ThreadName => nameof(Match);
         public Game Game { get; set; }
         public Me Me { get; set; }
         public Player[] Players { get; private set; }
